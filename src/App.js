@@ -9,7 +9,8 @@ class App extends React.Component{
     super();
     this.state = {
       // initial state is an empty array we are gonna fetch through api and solve it.
-      monsters: []
+      monsters: [],
+      searchField: '',
     }
   }
 
@@ -24,10 +25,21 @@ class App extends React.Component{
   }
 
   render(){
+    // On every state change this render method is always called on.
+    // Now we will filter the monster array according to the search field
+    const { monsters, searchField } = this.state;
+    const filteredMonsters = monsters.filter(monster => 
+      monster.name.toLowerCase().includes(searchField.toLowerCase())  
+    );
     return(
       <div className='App'>
-        <CardList name="Dhruv"> {this.state.monsters.map(monster => ( <h1 key={monster.id}>{monster.name}</h1> ))} </CardList>
-        
+        <input type="search" onChange={
+          // we pass that second callback parameter so that it updates the state of searchField in real time.
+            e => {this.setState({searchField: e.target.value})}
+          } 
+          placeholder='Search Monsters'
+         />
+        <CardList monsters = {filteredMonsters}/>         
       </div>
     )
   }
