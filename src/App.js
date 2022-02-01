@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { CardList } from './components/card-list/card-list.component';
+import { SearchBox } from './components/search-box/search-box.component';
 
 import './App.css';
 
@@ -33,13 +34,13 @@ class App extends React.Component{
     );
     return(
       <div className='App'>
-        <input type="search" onChange={
+        <h1>Monster Rolodex</h1>
+        
+        <SearchBox placeholder = "Search Monster" handleChange = {
           // we pass that second callback parameter so that it updates the state of searchField in real time.
-            e => {this.setState({searchField: e.target.value})}
-          } 
-          placeholder='Search Monsters'
-         />
+          e => {this.setState({searchField: e.target.value})}} />
         <CardList monsters = {filteredMonsters}/>         
+      
       </div>
     )
   }
